@@ -13,10 +13,10 @@ alphabet_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
 special_characters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '{', '}', '[', ']', '|', ';', ':', "'", '"', '<', '>', ',', '.', '/', '?', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 
 def caesar(text, shift, type):
-    cipler = ""
+    cipher = ""
     for i in text:
         if i in special_characters:
-            cipler += i
+            cipher += i
             continue
         position = alphabet_list.index(i)
         if type == "e":
@@ -27,13 +27,18 @@ def caesar(text, shift, type):
             new_position = position - shift
             if new_position< 0:
                 new_position += len(alphabet_list)
-        cipler += alphabet_list[new_position]
-    return cipler
+        cipher += alphabet_list[new_position]
+    return cipher
 
 while True:
-    user_req = input("Would You like to encrypt(e) or decrypt(d)?: ")
+    user_req = input("Would You like to encrypt(e) or decrypt(d)?: ").lower()
     text = input("Enter text (lowercase only): ").lower()
-    shift = int(input("Enter shift/key value: "))
+    try:
+        shift = int(input("Enter shift/key value: "))
+    except ValueError:
+        print("Shift value must be an integer.")
+        continue
+
     if user_req == 'e':
         print(f"The encrypted text is: {caesar(text, shift, user_req)}")
     elif user_req == 'd':
@@ -42,7 +47,7 @@ while True:
         print("Invalid input try again.")
         continue
 
-    status = input("\nEnter 'y' to continue or 'n' to exit: ")
+    status = input("\nEnter 'y' to continue or 'n' to exit: ").lower()
     if status == 'y':
         continue
     else:
