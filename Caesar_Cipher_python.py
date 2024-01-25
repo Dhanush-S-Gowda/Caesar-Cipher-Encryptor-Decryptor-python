@@ -10,42 +10,34 @@ print(welcome, "\n")
 print("Welcome to Caesar Cipher encryptr/Decoder\n")
 
 alphabet_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-special_characters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '{', '}', '[', ']', '|', ';', ':', "'", '"', '<', '>', ',', '.', '/', '?', ' ']
+special_characters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '{', '}', '[', ']', '|', ';', ':', "'", '"', '<', '>', ',', '.', '/', '?', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 
-def encrypt(text, shift):
+def caesar(text, shift, type):
     cipler = ""
     for i in text:
         if i in special_characters:
             cipler += i
             continue
         position = alphabet_list.index(i)
-        new_position = position + shift
-        if new_position>= len(alphabet_list):
-            new_position -= len(alphabet_list)
-        cipler += alphabet_list[new_position]
-    return cipler
-
-def decrypt(text, shift):
-    cipler = ""
-    for i in text:
-        if i in special_characters:
-            cipler += i
-            continue
-        position = alphabet_list.index(i)
-        new_position = position - shift
-        if new_position< 0:
-            new_position += len(alphabet_list)
+        if type == "e":
+            new_position = position + shift
+            if new_position>= len(alphabet_list):
+                new_position -= len(alphabet_list)
+        elif type == "d":
+            new_position = position - shift
+            if new_position< 0:
+                new_position += len(alphabet_list)
         cipler += alphabet_list[new_position]
     return cipler
 
 while True:
-    type = input("Would You like to encrypt(e) or decrypt(d)?: ")
+    user_req = input("Would You like to encrypt(e) or decrypt(d)?: ")
     text = input("Enter text (lowercase only): ").lower()
     shift = int(input("Enter shift/key value: "))
-    if type == 'e':
-        print(f"The encrypted text is: {encrypt(text, shift)}")
-    elif type == 'd':
-        print(f"The decrypted text is: {decrypt(text, shift)}")
+    if user_req == 'e':
+        print(f"The encrypted text is: {caesar(text, shift, user_req)}")
+    elif user_req == 'd':
+        print(f"The decrypted text is: {caesar(text, shift, user_req)}")
     else:
         print("Invalid input try again.")
         continue
@@ -55,4 +47,3 @@ while True:
         continue
     else:
         break
-
