@@ -23,8 +23,7 @@ def caesar(text, shift, type):
             continue
         position = alphabet_list.index(i)
         new_position = position + shift
-        if (new_position>= len(alphabet_list)) or (new_position< 0):
-            new_position %= length
+        new_position %= length
         cipher += alphabet_list[new_position]
     return cipher
 
@@ -44,7 +43,7 @@ while True:
     else:
         print("Invalid input try again.")
         continue
-        
+
     status = input("\nEnter 'y' to continue or 'n' to exit: ").lower()
     if status == 'y':
         continue
